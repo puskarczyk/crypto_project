@@ -2,7 +2,6 @@
 
 *Projekt realizowany w ramach kursu Metody Kryptografii na AGH*
 
-<div align="justify">
 
 ## Opis i cel projektu
 Głównym celem projektu jest projekt i implementacja systemu bezpiecznego outsourcingu obliczeń statystycznych na wrażliwych danych medycznych przy użyciu szyfrowania homomorficznego (schemat CKKS).
@@ -71,7 +70,9 @@ sequenceDiagram
 
 ### Obliczenie średniej
 Serwer otrzymuje zaszyfrowany wektor danych $\text{enc\_x}$ o długości $n$. Wykorzystując homomorficzne dodawanie oraz mnożenie przez jawny skalar, serwer realizuje algorytm:
-$$\text{enc\_mean} = \left( \sum_{i=1}^{n} \text{enc\_x}_i \right) \cdot \frac{1}{n}$$
+
+$$\mu_{enc} = \left( \sum_{i=1}^{n} X_{enc, i} \right) \cdot \frac{1}{n}$$
+
 Wynikowy szyfrogram reprezentuje pojedynczą wartość (skalar) średniej.
 
 ### Wyznaczenie wariancji ($\sigma^2$) i odchylenia standardowego ($\sigma$)
@@ -79,7 +80,9 @@ Obliczenie wariancji wymaga operacji wycentrowania danych: $(x_i - \mu)^2$. Poni
 1. Szpital odbiera enc_mean, odszyfrowuje go lokalnie do wartości jawnej $\mu$.
 2. Szpital generuje w pamięci jawny wektor o długości $n$ wypełniony tą samą wartością (tzw. broadcast): $[\mu, \mu, \dots, \mu]$, szyfruje go jako enc_mean_broadcast i odsyła na serwer.
 3. Serwer wykonuje homomorficzne odejmowanie wektorów, mnożenie szyfrogramu przez sam siebie (podniesienie do kwadratu, co zużywa jedną warstwę budżetu szumu) oraz uśrednienie wyników:
-$$\text{enc\_variance} = \left( \sum_{i=1}^{n} (\text{enc\_x}_i - \text{enc\_mean\_broadcast}_i)^2 \right) \cdot \frac{1}{n}$$
+
+$$\sigma^2_{enc} = \left( \sum_{i=1}^{n} (X_{enc, i} - \mu_{broadcast, i})^2 \right) \cdot \frac{1}{n}$$
+
 4. Szpital odbiera i deszyfruje wariancję. Operacja pierwiastkowania w celu uzyskania odchylenia standardowego ($\sigma = \sqrt{\sigma^2}$) jest wykonywana lokalnie po stronie szpitala, ponieważ wyznaczenie pierwiastka na szyfrogramie CKKS wymagałoby kosztownej i niedokładnej aproksymacji wielomianowej.
 
 ## Walidacja i wyniki skryptu demonstracyjnego
@@ -111,4 +114,3 @@ python demo.py
 Pliki projektu: [demo.py](demo.py), [hospital_client.py](hospital_client.py), [computation_server.py](computation_server.py), [requirements.txt](requirements.txt)
 
 
-</div>
