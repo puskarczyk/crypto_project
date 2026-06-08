@@ -1,6 +1,7 @@
 # System poufnej analizy danych medycznych z wykorzystaniem szyfrowania homomorficznego
 
 *Projekt realizowany w ramach kursu Metody Kryptografii na AGH*
+**Autorzy: Patrycja Puskarczyk, Kinga Orłowicz**
 
 
 ## Opis i cel projektu
