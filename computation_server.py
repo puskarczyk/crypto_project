@@ -1,5 +1,5 @@
 from __future__ import annotations
-import math
+#import math
 import tenseal as ts
 
 
@@ -24,7 +24,7 @@ def compute_encrypted_mean(
     encrypted_column_bytes: bytes,
     n: int,
 ) -> bytes:
-    # Zaszyfrowana srednia: sum(x) / n
+    # srednia: sum(x) / n
     if n <= 0:
         raise ValueError("n musi byc > 0")
     _, vec = _load(public_context_bytes, encrypted_column_bytes)
@@ -37,14 +37,14 @@ def compute_encrypted_variance(
     encrypted_mean_bytes: bytes,
     n: int,
 ) -> bytes:
-    #Zaszyfrowana wariancja: sum((x_i - mean)^2) / n
+    #wariancja: sum((x_i - mean)^2) / n
     if n <= 0:
         raise ValueError("n musi byc > 0")
     ctx, vec = _load(public_context_bytes, encrypted_column_bytes)
     mean_vec = ts.ckks_vector_from(ctx, encrypted_mean_bytes)
 
-    # Rozszerzamy srednia do wektora o dlugosci n (replikacja przez mnozenie skalarem 1)
-    centred = vec - mean_vec  # CKKS: vec - broadcast_mean (ten sam rozmiar)
+    # rozszerzamy srednia do wektora o dlugosci n
+    centred = vec - mean_vec
     sq = centred * centred
     variance = sq.sum() * (1.0 / n)
     return variance.serialize()

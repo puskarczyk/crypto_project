@@ -247,6 +247,7 @@ Najważniejszym wnioskiem z punktu widzenia medycznego jest fakt, że system w 1
 Dzięki zaimplementowanemu systemowi, lekarz lub badacz medyczny pracujący na danych odszyfrowanych otrzymał precyzyjne, czytelne ekstrema różnicujące oba typy nowotworów, podczas gdy serwer przetwarzający te dane nie poznał ani jednej wartości promienia, powierzchni czy tożsamości pacjentów.
 
 ## Instrukcja uruchomienia
+Wymagane: Python (projekt testowano zarówno na Pythonie 3.11 jak i 3.13 i działał)
 - Stwórz środowisko wirtualne i aktywuj je:
 ```powershell
 python -m venv venv
